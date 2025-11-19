@@ -1,0 +1,7 @@
+/* Layout CSS Index - Import all layout styles */
+@import './container.css';
+@import './grid.css';
+@import './header.css';
+@import './sidebar.css';
+@import './footer.css';
+

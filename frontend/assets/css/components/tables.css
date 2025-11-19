@@ -1,0 +1,143 @@
+/* Table Components */
+
+.table-container {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: var(--bg-primary);
+  font-size: var(--font-size-base);
+}
+
+.table thead {
+  background-color: var(--bg-secondary);
+}
+
+.table th {
+  padding: var(--spacing-md) var(--spacing-lg);
+  text-align: left;
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  color: var(--text-primary);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  border-bottom: 2px solid var(--border-light);
+}
+
+.table td {
+  padding: var(--spacing-md) var(--spacing-lg);
+  border-bottom: 1px solid var(--border-light);
+  color: var(--text-primary);
+}
+
+.table tbody tr {
+  transition: background-color var(--transition-fast);
+}
+
+.table tbody tr:hover {
+  background-color: var(--bg-secondary);
+}
+
+.table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+/* Table Variants */
+.table-striped tbody tr:nth-child(even) {
+  background-color: var(--bg-secondary);
+}
+
+.table-bordered {
+  border: 1px solid var(--border-light);
+}
+
+.table-bordered th,
+.table-bordered td {
+  border: 1px solid var(--border-light);
+}
+
+.table-hover tbody tr {
+  cursor: pointer;
+}
+
+/* Status Badge in Table */
+.table .status-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: var(--spacing-xs) var(--spacing-sm);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-medium);
+  border-radius: var(--radius-full);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.table .status-badge.active,
+.table .status-badge.present,
+.table .status-badge.enrolled {
+  background-color: var(--success-green-light);
+  color: var(--success-green);
+}
+
+.table .status-badge.pending,
+.table .status-badge.late,
+.table .status-badge.on-leave {
+  background-color: var(--warning-orange-light);
+  color: var(--warning-orange);
+}
+
+.table .status-badge.inactive,
+.table .status-badge.absent,
+.table .status-badge.rejected {
+  background-color: var(--error-red-light);
+  color: var(--error-red);
+}
+
+/* Action Buttons in Table */
+.table-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+}
+
+.table-actions .btn-icon {
+  width: 2rem;
+  height: 2rem;
+  padding: var(--spacing-xs);
+}
+
+/* Empty State */
+.table-empty {
+  padding: var(--spacing-3xl);
+  text-align: center;
+  color: var(--text-muted);
+}
+
+.table-empty svg {
+  width: 3rem;
+  height: 3rem;
+  margin: 0 auto var(--spacing-md);
+  color: var(--text-muted);
+  opacity: 0.5;
+}
+
+/* Responsive Table */
+@media (max-width: 768px) {
+  .table {
+    font-size: var(--font-size-sm);
+  }
+  
+  .table th,
+  .table td {
+    padding: var(--spacing-sm) var(--spacing-md);
+  }
+  
+  .table-actions {
+    flex-direction: column;
+    gap: var(--spacing-xs);
+  }
+}
+
