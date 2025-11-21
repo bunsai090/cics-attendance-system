@@ -6,17 +6,17 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Student Registration - CICS Attendance System</title>
   <!-- CSS Variables -->
-  <link rel="stylesheet" href="../assets/css/base/variables.css">
+  <link rel="stylesheet" href="frontend/assets/css/base/variables.css">
   <!-- Component Styles -->
-  <link rel="stylesheet" href="../assets/css/components/forms.css">
-  <link rel="stylesheet" href="../assets/css/components/buttons.css">
-  <link rel="stylesheet" href="../assets/css/components/modals.css">
-  <link rel="stylesheet" href="../assets/css/components/toast.css">
+  <link rel="stylesheet" href="frontend/assets/css/components/forms.css">
+  <link rel="stylesheet" href="frontend/assets/css/components/buttons.css">
+  <link rel="stylesheet" href="frontend/assets/css/components/modals.css">
+  <link rel="stylesheet" href="frontend/assets/css/components/toast.css">
   <!-- Page Styles -->
-  <link rel="stylesheet" href="../assets/css/pages/auth.css">
-  <link rel="stylesheet" href="../assets/css/main.css">
+  <link rel="stylesheet" href="frontend/assets/css/pages/auth.css">
+  <link rel="stylesheet" href="frontend/assets/css/main.css">
   <!-- Device Fingerprinting -->
-  <script src="../assets/js/fingerprint.js"></script>
+  <script src="frontend/assets/js/fingerprint.js"></script>
 </head>
 
 <body>
@@ -197,14 +197,14 @@
           Thank you for registering. Your account is pending approval from the administrator. You will be notified once your account has been approved.
         </p>
         <div style="display: flex; gap: var(--spacing-md);">
-          <button type="button" class="btn btn-secondary" onclick="window.location.href='index.php'">Return Home</button>
+          <button type="button" class="btn btn-secondary" onclick=\"window.location.href='./index.php'\">Return Home</button>
           <button type="button" class="btn btn-primary" onclick="window.location.href='login.php'">Go to Login</button>
         </div>
       </div>
     </div>
   </div>
 
-  <script src="../assets/js/global.js"></script>
+  <script src="frontend/assets/js/global.js"></script>
   <script>
     let deviceFingerprintValue = '';
 

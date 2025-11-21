@@ -72,7 +72,7 @@ const AuthAPI = {
             // Clear local session data
             sessionStorage.removeItem('user');
             sessionStorage.removeItem('isLoggedIn');
-            window.location.href = '/cics-attendance-system/frontend/views/login.php';
+            window.location.href = '/cics-attendance-system/login.php';
         }
     },
 
@@ -110,7 +110,7 @@ const AuthAPI = {
      */
     requireAuth(allowedRoles = []) {
         if (!this.isAuthenticated()) {
-            window.location.href = '/cics-attendance-system/frontend/views/login.php';
+            window.location.href = '/cics-attendance-system/login.php';
             return false;
         }
 
@@ -118,7 +118,7 @@ const AuthAPI = {
             const user = this.getUser();
             if (!user || !allowedRoles.includes(user.role)) {
                 Toast.error('Access denied', 'Insufficient permissions');
-                window.location.href = '/cics-attendance-system/frontend/views/login.php';
+                window.location.href = '/cics-attendance-system/login.php';
                 return false;
             }
         }

@@ -1,4 +1,4 @@
-/* ===== FONT FAMILIES ===== */
+﻿/* ===== FONT FAMILIES ===== */
 .font-poppins {
   font-family: 'Poppins', sans-serif;
 }
@@ -551,6 +551,8 @@ section {
   gap: 0.75rem;
   color: #374151;
   font-family: 'Montserrat', sans-serif;
+  list-style: none;
+  margin-bottom: 1.5rem;
 }
 
 @media (min-width: 768px) {
@@ -576,6 +578,7 @@ section {
 .footer {
   background-color: #1a3e6c;
   color: white;
+  padding: 3rem 0 1.5rem;
 }
 
 .footer-grid {
@@ -592,7 +595,7 @@ section {
 }
 
 .footer-col {
-  padding: 3rem 1rem;
+  padding: 0 1rem;
 }
 
 .footer-title {
@@ -644,33 +647,73 @@ section {
 .contact-list {
   list-style: none;
   display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  font-family: 'Montserrat', sans-serif;
+}
 
-  .text-sm {
-    font-size: 0.875rem;
-  }
+.contact-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  color: #d1d5db;
+}
 
-  .text-xs {
-    font-size: 0.75rem;
-  }
+.contact-item svg {
+  width: 1.25rem;
+  height: 1.25rem;
+  flex-shrink: 0;
+  margin-top: 0.125rem;
+  color: #f0c75e;
+}
 
-  .mt-2 {
-    margin-top: 0.5rem;
-  }
+.footer-bottom {
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  padding-top: 1.5rem;
+  text-align: center;
+  font-size: 0.875rem;
+  color: rgba(255, 255, 255, 0.6);
+}
 
-  .mt-3 {
-    margin-top: 0.75rem;
-  }
+/* ===== UTILITY CLASSES ===== */
+.text-center {
+  text-align: center;
+}
 
-  .forgot-password-link,
-  .create-account-link {
-    color: #2563eb;
-    font-weight: 500;
-    text-decoration: none;
-    transition: all 0.3s ease;
-  }
+.text-sm {
+  font-size: 0.875rem;
+}
 
-  .forgot-password-link:hover,
-  .create-account-link:hover {
-    text-decoration: underline;
-    color: #1e40af;
-  }
+.text-xs {
+  font-size: 0.75rem;
+}
+
+.text-gray-600 {
+  color: #4b5563;
+}
+
+.mt-2 {
+  margin-top: 0.5rem;
+}
+
+.mt-3 {
+  margin-top: 0.75rem;
+}
+
+.mt-4 {
+  margin-top: 1rem;
+}
+
+.forgot-password-link,
+.create-account-link {
+  color: #2563eb;
+  font-weight: 500;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.forgot-password-link:hover,
+.create-account-link:hover {
+  text-decoration: underline;
+  color: #1e40af;
+}

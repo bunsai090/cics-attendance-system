@@ -6,15 +6,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Login - CICS Attendance System</title>
   <!-- CSS Variables -->
-  <link rel="stylesheet" href="../assets/css/base/variables.css">
+  <link rel="stylesheet" href="frontend/assets/css/base/variables.css">
   <!-- Component Styles -->
-  <link rel="stylesheet" href="../assets/css/components/forms.css">
-  <link rel="stylesheet" href="../assets/css/components/buttons.css">
-  <link rel="stylesheet" href="../assets/css/components/toast.css">
+  <link rel="stylesheet" href="frontend/assets/css/components/forms.css">
+  <link rel="stylesheet" href="frontend/assets/css/components/buttons.css">
+  <link rel="stylesheet" href="frontend/assets/css/components/toast.css">
   <!-- Page Styles -->
-  <link rel="stylesheet" href="../assets/css/pages/auth.css">
-  <link rel="stylesheet" href="../assets/css/pages/login-animations.css">
-  <link rel="stylesheet" href="../assets/css/main.css">
+  <link rel="stylesheet" href="frontend/assets/css/pages/auth.css">
+  <link rel="stylesheet" href="frontend/assets/css/pages/login-animations.css">
+  <link rel="stylesheet" href="frontend/assets/css/main.css">
 </head>
 
 <body class="login-page">
@@ -70,10 +70,10 @@
     </div>
   </div>
 
-  <script src="../assets/js/global.js"></script>
-  <script src="../assets/js/login-animations.js"></script>
-  <script src="../assets/js/fingerprint.js"></script>
-  <script src="../assets/js/auth.js"></script>
+  <script src="frontend/assets/js/global.js"></script>
+  <script src="frontend/assets/js/login-animations.js"></script>
+  <script src="frontend/assets/js/fingerprint.js"></script>
+  <script src="frontend/assets/js/auth.js"></script>
   <script>
     // Custom password toggle for login page
     document.addEventListener('DOMContentLoaded', function() {

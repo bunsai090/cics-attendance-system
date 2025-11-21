@@ -6,7 +6,7 @@
 
 // Start session with the same configuration as the backend
 if (session_status() === PHP_SESSION_NONE) {
-    $configPath = __DIR__ . '/../../backend/config/app.php';
+    $configPath = __DIR__ . '/backend/config/app.php';
     
     if (file_exists($configPath)) {
         $config = require $configPath;
@@ -27,10 +27,8 @@ function require_auth() {
     if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
         // Redirect to login page
         // Assuming this script is included from a file in frontend/views/admin/ or similar
-        // We need to construct the path to login.php
-        
-        // Simple relative path assuming standard structure (views/admin/dashboard.php -> views/login.php)
-        header('Location: ../login.php');
+        // Redirect to login page at root
+        header('Location: /cics-attendance-system/login.php');
         exit;
     }
 }
@@ -88,7 +86,7 @@ function require_role($allowed_roles) {
             <div class="error-card">
                 <h1>Access Denied</h1>
                 <p>You do not have permission to access this page.</p>
-                <a href="../login.php" class="btn">Return to Login</a>
+                <a href="/cics-attendance-system/login.php" class="btn">Return to Login</a>
             </div>
         </body>
         </html>
