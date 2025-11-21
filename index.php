@@ -30,7 +30,7 @@
           <a href="#about" class="nav-link">About</a>
           <a href="#contact" class="nav-link">Contact</a>
         </nav>
-        <a href="frontend/views/login.php" class="btn-login">Login</a>
+        <a href="login.php" class="btn-login">Login</a>
       </div>
     </header>
 
