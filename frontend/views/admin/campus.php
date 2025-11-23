@@ -456,52 +456,63 @@ $activePage = 'campus';
         let watchId;
         let bestPosition = null;
         let attempts = 0;
-        const maxAttempts = 5; // Try to get 5 readings
-        const maxWaitTime = 15000; // Maximum 15 seconds
+        const startTime = Date.now();
+        const maxWaitTime = 10000; // Reduced to 10 seconds for speed
 
         // GPS options for maximum accuracy
         const gpsOptions = {
-          enableHighAccuracy: true,  // Use GPS if available
-          timeout: 5000,             // 5 seconds per attempt
-          maximumAge: 0              // No cached positions
+          enableHighAccuracy: true,
+          timeout: 5000,
+          maximumAge: 2000 // Accept positions up to 2 seconds old (faster)
         };
 
         // Set timeout to stop watching after maxWaitTime
         const timeoutId = setTimeout(() => {
-          if (watchId) {
-            navigator.geolocation.clearWatch(watchId);
-          }
+          finish(bestPosition);
+        }, maxWaitTime);
+
+        // Helper to finish and clean up
+        function finish(position) {
+          clearTimeout(timeoutId);
+          if (watchId) navigator.geolocation.clearWatch(watchId);
           
-          if (bestPosition) {
-            // Use the best position we got
-            applyPosition(bestPosition);
+          if (position) {
+            applyPosition(position);
           } else {
-            Toast.error('Could not get accurate location. Please try again.');
+            Toast.error('Could not get location. Please check GPS settings.');
             resetLocationButton();
           }
-        }, maxWaitTime);
+        }
 
         // Watch position to get multiple readings
         watchId = navigator.geolocation.watchPosition(
           (position) => {
             attempts++;
             const accuracy = position.coords.accuracy;
+            const elapsed = Date.now() - startTime;
 
             // Keep the most accurate position
             if (!bestPosition || accuracy < bestPosition.coords.accuracy) {
               bestPosition = position;
             }
 
-            // If we got a very accurate reading (< 20m) or reached max attempts, use it
-            if (accuracy < 20 || attempts >= maxAttempts) {
-              clearTimeout(timeoutId);
-              navigator.geolocation.clearWatch(watchId);
-              applyPosition(bestPosition);
+            // Adaptive Strategy:
+            // 1. Excellent accuracy (< 10m) -> Stop immediately
+            // 2. Good accuracy (< 20m) AND > 2 seconds elapsed -> Stop
+            // 3. Decent accuracy (< 50m) AND > 5 seconds elapsed -> Stop
+            
+            if (accuracy <= 10) {
+              finish(bestPosition);
+            } else if (accuracy <= 20 && elapsed > 2000) {
+              finish(bestPosition);
+            } else if (accuracy <= 50 && elapsed > 5000) {
+              finish(bestPosition);
             } else {
               // Update button with current accuracy
-              elements.getCurrentLocationBtn.innerHTML = `<span class="spinner" style="width: 16px; height: 16px;"></span> Improving accuracy... (${Math.round(accuracy)}m)`;
+              elements.getCurrentLocationBtn.innerHTML = `<span class="spinner" style="width: 16px; height: 16px;"></span> Improving... (${Math.round(accuracy)}m)`;
             }
           },
+
           (error) => {
             clearTimeout(timeoutId);
             if (watchId) {
