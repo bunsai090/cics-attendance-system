@@ -29,6 +29,15 @@ class Instructor {
         return $this->db->lastInsertId();
     }
 
+    public function findByUserId($userId) {
+        $sql = "SELECT i.*, u.email, u.status as user_status
+                FROM instructors i
+                JOIN users u ON i.user_id = u.id
+                WHERE i.user_id = :user_id
+                LIMIT 1";
+        return $this->db->fetchOne($sql, [':user_id' => $userId]);
+    }
+
     public function findById($id) {
         $sql = "SELECT i.*, u.email, u.status as user_status
                 FROM instructors i
