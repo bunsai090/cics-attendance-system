@@ -58,7 +58,7 @@ $assignedSubjectsCount = count($assignedSubjects);
                 </svg>
               </div>
             </div>
-            <div class="stat-card-value">3</div>
+            <div class="stat-card-value">0</div>
           </div>
 
           <div class="stat-card">
@@ -70,7 +70,7 @@ $assignedSubjectsCount = count($assignedSubjects);
                 </svg>
               </div>
             </div>
-            <div class="stat-card-value">7</div>
+            <div class="stat-card-value">0</div>
           </div>
 
           <div class="stat-card">
@@ -94,7 +94,7 @@ $assignedSubjectsCount = count($assignedSubjects);
                 </svg>
               </div>
             </div>
-            <div class="stat-card-value">8</div>
+            <div class="stat-card-value">0</div>
           </div>
 
           <div class="stat-card">
@@ -106,7 +106,7 @@ $assignedSubjectsCount = count($assignedSubjects);
                 </svg>
               </div>
             </div>
-            <div class="stat-card-value">5</div>
+            <div class="stat-card-value">0</div>
           </div>
         </div>
 
@@ -184,28 +184,7 @@ $assignedSubjectsCount = count($assignedSubjects);
                 </thead>
                 <tbody>
                   <tr>
-                    <td>Data Structures</td>
-                    <td>CS-3A</td>
-                    <td>08:00 AM - 10:00 AM</td>
-                    <td>Room 301</td>
-                    <td><span class="status-badge active">Active</span></td>
-                    <td><button class="btn btn-primary btn-sm">End Session</button></td>
-                  </tr>
-                  <tr>
-                    <td>Web Development</td>
-                    <td>IT-2B</td>
-                    <td>10:00 AM - 12:00 PM</td>
-                    <td>Lab 204</td>
-                    <td><span class="status-badge active">Active</span></td>
-                    <td><button class="btn btn-primary btn-sm">End Session</button></td>
-                  </tr>
-                  <tr>
-                    <td>Database Systems</td>
-                    <td>CS-3B</td>
-                    <td>01:00 PM - 03:00 PM</td>
-                    <td>Room 305</td>
-                    <td><span class="status-badge active">Active</span></td>
-                    <td><button class="btn btn-primary btn-sm">End Session</button></td>
+                    <td colspan="6" class="text-center">No active sessions</td>
                   </tr>
                 </tbody>
               </table>
@@ -230,19 +209,13 @@ $assignedSubjectsCount = count($assignedSubjects);
                 <div class="filter-group">
                   <label class="filter-label">Subject</label>
                   <select class="form-select" style="width: 200px;">
-                    <option>All Subjects</option>
-                    <option>Data Structures</option>
-                    <option>Web Development</option>
-                    <option>Database Systems</option>
+                    <option>No subjects available</option>
                   </select>
                 </div>
                 <div class="filter-group">
                   <label class="filter-label">Section</label>
                   <select class="form-select" style="width: 200px;">
-                    <option>All Sections</option>
-                    <option>CS-3A</option>
-                    <option>IT-2B</option>
-                    <option>CS-3B</option>
+                    <option>No sections available</option>
                   </select>
                 </div>
                 <div class="filter-group">
@@ -272,28 +245,7 @@ $assignedSubjectsCount = count($assignedSubjects);
                 </thead>
                 <tbody>
                   <tr>
-                    <td>Alice Johnson</td>
-                    <td>08:05 AM</td>
-                    <td><span class="status-badge present">Present</span></td>
-                    <td>-</td>
-                  </tr>
-                  <tr>
-                    <td>Bob Smith</td>
-                    <td>08:15 AM</td>
-                    <td><span class="status-badge late">Late</span></td>
-                    <td>Traffic</td>
-                  </tr>
-                  <tr>
-                    <td>Charlie Brown</td>
-                    <td>08:02 AM</td>
-                    <td><span class="status-badge present">Present</span></td>
-                    <td>-</td>
-                  </tr>
-                  <tr>
-                    <td>Diana Prince</td>
-                    <td>-</td>
-                    <td><span class="status-badge absent">Absent</span></td>
-                    <td>-</td>
+                    <td colspan="4" class="text-center">No attendance records found</td>
                   </tr>
                 </tbody>
               </table>
@@ -315,9 +267,7 @@ $assignedSubjectsCount = count($assignedSubjects);
             <div class="attendance-tool-card">
               <div class="attendance-tool-title">Select Subject & Section</div>
               <select class="form-control" style="margin-bottom: var(--spacing-md);">
-                <option>Data Structures - CS-3A</option>
-                <option>Web Development - IT-2B</option>
-                <option>Database Systems - CS-3B</option>
+                <option value="">Select a subject</option>
               </select>
               <div class="attendance-buttons">
                 <button class="btn btn-success" style="flex: 1;">Mark Present</button>
@@ -352,32 +302,7 @@ $assignedSubjectsCount = count($assignedSubjects);
                 </thead>
                 <tbody>
                   <tr>
-                    <td>Alice Johnson</td>
-                    <td>Data Structures</td>
-                    <td>2024-01-15</td>
-                    <td>Mark as Present</td>
-                    <td><span class="status-badge pending">Pending</span></td>
-                    <td>
-                      <div class="action-buttons">
-                        <button class="btn-action btn-approve">Approve</button>
-                        <button class="btn-action btn-reject">Reject</button>
-                        <button class="btn btn-outline btn-sm">Comment</button>
-                      </div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>Bob Smith</td>
-                    <td>Web Development</td>
-                    <td>2024-01-14</td>
-                    <td>Change to Late</td>
-                    <td><span class="status-badge pending">Pending</span></td>
-                    <td>
-                      <div class="action-buttons">
-                        <button class="btn-action btn-approve">Approve</button>
-                        <button class="btn-action btn-reject">Reject</button>
-                        <button class="btn btn-outline btn-sm">Comment</button>
-                      </div>
-                    </td>
+                    <td colspan="6" class="text-center">No pending correction requests</td>
                   </tr>
                 </tbody>
               </table>
@@ -400,54 +325,31 @@ $assignedSubjectsCount = count($assignedSubjects);
               <div class="schedule-grid">
                 <div class="schedule-day">
                   <div class="schedule-day-header">Monday</div>
-                  <div class="schedule-item">
-                    <div class="schedule-item-time">08:00 - 10:00</div>
-                    <div class="schedule-item-subject">Data Structures</div>
-                    <div class="schedule-item-section">CS-3A | Room 301</div>
-                  </div>
-                  <div class="schedule-item">
-                    <div class="schedule-item-time">10:00 - 12:00</div>
-                    <div class="schedule-item-subject">Web Development</div>
-                    <div class="schedule-item-section">IT-2B | Lab 204</div>
-                  </div>
+                  <div class="schedule-item empty">No classes scheduled</div>
                 </div>
                 <div class="schedule-day">
                   <div class="schedule-day-header">Tuesday</div>
-                  <div class="schedule-item">
-                    <div class="schedule-item-time">01:00 - 03:00</div>
-                    <div class="schedule-item-subject">Database Systems</div>
-                    <div class="schedule-item-section">CS-3B | Room 305</div>
-                  </div>
+                  <div class="schedule-item empty">No classes scheduled</div>
                 </div>
                 <div class="schedule-day">
                   <div class="schedule-day-header">Wednesday</div>
-                  <div class="schedule-item">
-                    <div class="schedule-item-time">08:00 - 10:00</div>
-                    <div class="schedule-item-subject">Data Structures</div>
-                    <div class="schedule-item-section">CS-3A | Room 301</div>
-                  </div>
+                  <div class="schedule-item empty">No classes scheduled</div>
                 </div>
                 <div class="schedule-day">
                   <div class="schedule-day-header">Thursday</div>
-                  <div class="schedule-item">
-                    <div class="schedule-item-time">10:00 - 12:00</div>
-                    <div class="schedule-item-subject">Web Development</div>
-                    <div class="schedule-item-section">IT-2B | Lab 204</div>
-                  </div>
+                  <div class="schedule-item empty">No classes scheduled</div>
                 </div>
                 <div class="schedule-day">
                   <div class="schedule-day-header">Friday</div>
-                  <div class="schedule-item">
-                    <div class="schedule-item-time">01:00 - 03:00</div>
-                    <div class="schedule-item-subject">Database Systems</div>
-                    <div class="schedule-item-section">CS-3B | Room 305</div>
-                  </div>
+                  <div class="schedule-item empty">No classes scheduled</div>
                 </div>
                 <div class="schedule-day">
                   <div class="schedule-day-header">Saturday</div>
+                  <div class="schedule-item empty">No classes scheduled</div>
                 </div>
                 <div class="schedule-day">
                   <div class="schedule-day-header">Sunday</div>
+                  <div class="schedule-item empty">No classes scheduled</div>
                 </div>
               </div>
             </div>
