@@ -5,6 +5,7 @@ $activePage = 'subjects';
 ?>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -13,7 +14,45 @@ $activePage = 'subjects';
   <link rel="stylesheet" href="../../assets/css/pages/admin.css">
   <link rel="stylesheet" href="../../assets/css/main.css">
   <link rel="stylesheet" href="../../assets/css/components/modals.css">
+  <style>
+    .schedule-picker-container {
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      padding: 1rem;
+      background: var(--bg-surface);
+    }
+
+    .schedule-header {
+      display: grid;
+      grid-template-columns: 80px 1fr 1fr;
+      gap: 1rem;
+      font-weight: 600;
+      font-size: 0.875rem;
+      color: var(--text-secondary);
+      margin-bottom: 0.5rem;
+    }
+
+    .schedule-row {
+      display: grid;
+      grid-template-columns: 80px 1fr;
+      gap: 1rem;
+      align-items: center;
+      padding: 0.5rem 0;
+      border-bottom: 1px solid var(--border-color-light);
+    }
+
+    .schedule-row:last-child {
+      border-bottom: none;
+    }
+
+    .day-check {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+  </style>
 </head>
+
 <body>
   <div class="main-layout">
     <!-- Sidebar -->
@@ -129,15 +168,250 @@ $activePage = 'subjects';
             </div>
             <div class="form-field form-group">
               <label for="subjectSection">Section <span class="text-danger">*</span></label>
-              <input type="text" id="subjectSection" name="section" class="form-control" required maxlength="10">
+              <select id="subjectSection" name="section" class="form-control" required>
+                <option value="">Select Section</option>
+                <option value="A">A</option>
+                <option value="B">B</option>
+                <option value="C">C</option>
+                <option value="D">D</option>
+                <option value="E">E</option>
+                <option value="F">F</option>
+                <option value="G">G</option>
+                <option value="H">H</option>
+              </select>
             </div>
             <div class="form-field form-group">
               <label for="subjectRoom">Room</label>
               <input type="text" id="subjectRoom" name="room" class="form-control" maxlength="50">
             </div>
             <div class="form-field form-group" style="grid-column: span 2;">
-              <label for="subjectSchedule">Schedule <span class="text-danger">*</span></label>
-              <textarea id="subjectSchedule" name="schedule" class="form-control" rows="3" placeholder="e.g., Monday, Wednesday, Friday 8:00 AM - 11:00 AM" required></textarea>
+              <label>Schedule <span class="text-danger">*</span></label>
+              <div class="schedule-picker-container">
+                <div class="schedule-header">
+                  <span>Day</span>
+                  <span>Start</span>
+                  <span>End</span>
+                </div>
+                <div class="schedule-rows">
+                  <!-- Monday -->
+                  <div class="schedule-row">
+                    <div class="day-check">
+                      <input type="checkbox" id="sched_mon" class="day-checkbox" value="Monday">
+                      <label for="sched_mon">Mon</label>
+                    </div>
+                    <div class="time-inputs-container">
+                      <div class="time-group start-time-group">
+                        <select class="time-select hour" disabled>
+                          <option value="">Hr</option>
+                        </select>
+                        <span class="colon">:</span>
+                        <select class="time-select minute" disabled>
+                          <option value="">Min</option>
+                        </select>
+                        <select class="time-select ampm" disabled>
+                          <option value="AM">AM</option>
+                          <option value="PM">PM</option>
+                        </select>
+                      </div>
+                      <span class="time-separator">-</span>
+                      <div class="time-group end-time-group">
+                        <select class="time-select hour" disabled>
+                          <option value="">Hr</option>
+                        </select>
+                        <span class="colon">:</span>
+                        <select class="time-select minute" disabled>
+                          <option value="">Min</option>
+                        </select>
+                        <select class="time-select ampm" disabled>
+                          <option value="AM">AM</option>
+                          <option value="PM">PM</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- Tuesday -->
+                  <div class="schedule-row">
+                    <div class="day-check">
+                      <input type="checkbox" id="sched_tue" class="day-checkbox" value="Tuesday">
+                      <label for="sched_tue">Tue</label>
+                    </div>
+                    <div class="time-inputs-container">
+                      <div class="time-group start-time-group">
+                        <select class="time-select hour" disabled>
+                          <option value="">Hr</option>
+                        </select>
+                        <span class="colon">:</span>
+                        <select class="time-select minute" disabled>
+                          <option value="">Min</option>
+                        </select>
+                        <select class="time-select ampm" disabled>
+                          <option value="AM">AM</option>
+                          <option value="PM">PM</option>
+                        </select>
+                      </div>
+                      <span class="time-separator">-</span>
+                      <div class="time-group end-time-group">
+                        <select class="time-select hour" disabled>
+                          <option value="">Hr</option>
+                        </select>
+                        <span class="colon">:</span>
+                        <select class="time-select minute" disabled>
+                          <option value="">Min</option>
+                        </select>
+                        <select class="time-select ampm" disabled>
+                          <option value="AM">AM</option>
+                          <option value="PM">PM</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- Wednesday -->
+                  <div class="schedule-row">
+                    <div class="day-check">
+                      <input type="checkbox" id="sched_wed" class="day-checkbox" value="Wednesday">
+                      <label for="sched_wed">Wed</label>
+                    </div>
+                    <div class="time-inputs-container">
+                      <div class="time-group start-time-group">
+                        <select class="time-select hour" disabled>
+                          <option value="">Hr</option>
+                        </select>
+                        <span class="colon">:</span>
+                        <select class="time-select minute" disabled>
+                          <option value="">Min</option>
+                        </select>
+                        <select class="time-select ampm" disabled>
+                          <option value="AM">AM</option>
+                          <option value="PM">PM</option>
+                        </select>
+                      </div>
+                      <span class="time-separator">-</span>
+                      <div class="time-group end-time-group">
+                        <select class="time-select hour" disabled>
+                          <option value="">Hr</option>
+                        </select>
+                        <span class="colon">:</span>
+                        <select class="time-select minute" disabled>
+                          <option value="">Min</option>
+                        </select>
+                        <select class="time-select ampm" disabled>
+                          <option value="AM">AM</option>
+                          <option value="PM">PM</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- Thursday -->
+                  <div class="schedule-row">
+                    <div class="day-check">
+                      <input type="checkbox" id="sched_thu" class="day-checkbox" value="Thursday">
+                      <label for="sched_thu">Thu</label>
+                    </div>
+                    <div class="time-inputs-container">
+                      <div class="time-group start-time-group">
+                        <select class="time-select hour" disabled>
+                          <option value="">Hr</option>
+                        </select>
+                        <span class="colon">:</span>
+                        <select class="time-select minute" disabled>
+                          <option value="">Min</option>
+                        </select>
+                        <select class="time-select ampm" disabled>
+                          <option value="AM">AM</option>
+                          <option value="PM">PM</option>
+                        </select>
+                      </div>
+                      <span class="time-separator">-</span>
+                      <div class="time-group end-time-group">
+                        <select class="time-select hour" disabled>
+                          <option value="">Hr</option>
+                        </select>
+                        <span class="colon">:</span>
+                        <select class="time-select minute" disabled>
+                          <option value="">Min</option>
+                        </select>
+                        <select class="time-select ampm" disabled>
+                          <option value="AM">AM</option>
+                          <option value="PM">PM</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- Friday -->
+                  <div class="schedule-row">
+                    <div class="day-check">
+                      <input type="checkbox" id="sched_fri" class="day-checkbox" value="Friday">
+                      <label for="sched_fri">Fri</label>
+                    </div>
+                    <div class="time-inputs-container">
+                      <div class="time-group start-time-group">
+                        <select class="time-select hour" disabled>
+                          <option value="">Hr</option>
+                        </select>
+                        <span class="colon">:</span>
+                        <select class="time-select minute" disabled>
+                          <option value="">Min</option>
+                        </select>
+                        <select class="time-select ampm" disabled>
+                          <option value="AM">AM</option>
+                          <option value="PM">PM</option>
+                        </select>
+                      </div>
+                      <span class="time-separator">-</span>
+                      <div class="time-group end-time-group">
+                        <select class="time-select hour" disabled>
+                          <option value="">Hr</option>
+                        </select>
+                        <span class="colon">:</span>
+                        <select class="time-select minute" disabled>
+                          <option value="">Min</option>
+                        </select>
+                        <select class="time-select ampm" disabled>
+                          <option value="AM">AM</option>
+                          <option value="PM">PM</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- Saturday -->
+                  <div class="schedule-row">
+                    <div class="day-check">
+                      <input type="checkbox" id="sched_sat" class="day-checkbox" value="Saturday">
+                      <label for="sched_sat">Sat</label>
+                    </div>
+                    <div class="time-inputs-container">
+                      <div class="time-group start-time-group">
+                        <select class="time-select hour" disabled>
+                          <option value="">Hr</option>
+                        </select>
+                        <span class="colon">:</span>
+                        <select class="time-select minute" disabled>
+                          <option value="">Min</option>
+                        </select>
+                        <select class="time-select ampm" disabled>
+                          <option value="AM">AM</option>
+                          <option value="PM">PM</option>
+                        </select>
+                      </div>
+                      <span class="time-separator">-</span>
+                      <div class="time-group end-time-group">
+                        <select class="time-select hour" disabled>
+                          <option value="">Hr</option>
+                        </select>
+                        <span class="colon">:</span>
+                        <select class="time-select minute" disabled>
+                          <option value="">Min</option>
+                        </select>
+                        <select class="time-select ampm" disabled>
+                          <option value="AM">AM</option>
+                          <option value="PM">PM</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <input type="hidden" id="subjectSchedule" name="schedule">
+              </div>
             </div>
           </div>
         </div>
@@ -200,7 +474,9 @@ $activePage = 'subjects';
         saveSubjectBtn: document.getElementById('saveSubjectBtn'),
         subjectModalTitle: document.getElementById('subjectModalTitle'),
         confirmDeleteBtn: document.getElementById('confirmDeleteBtn'),
-        deleteSubjectInfo: document.getElementById('deleteSubjectInfo')
+        deleteSubjectInfo: document.getElementById('deleteSubjectInfo'),
+        schedulePicker: document.querySelector('.schedule-picker-container'),
+        hiddenScheduleInput: document.getElementById('subjectSchedule')
       };
 
       document.addEventListener('DOMContentLoaded', init);
@@ -208,6 +484,7 @@ $activePage = 'subjects';
       function init() {
         attachEvents();
         fetchAllData();
+        initSchedulePicker();
       }
 
       function attachEvents() {
@@ -216,6 +493,7 @@ $activePage = 'subjects';
           elements.subjectModalTitle.textContent = 'Add Subject';
           elements.subjectForm.reset();
           document.getElementById('subjectInstructor').innerHTML = '<option value="">Select Instructor</option>';
+          resetSchedulePicker();
           loadInstructors();
           Modal.open('subjectModal');
         });
@@ -229,6 +507,175 @@ $activePage = 'subjects';
         elements.confirmDeleteBtn.addEventListener('click', handleDeleteSubject);
       }
 
+      function initSchedulePicker() {
+        populateTimeDropdowns();
+
+        const checkboxes = elements.schedulePicker.querySelectorAll('.day-checkbox');
+        checkboxes.forEach(checkbox => {
+          checkbox.addEventListener('change', (e) => {
+            const row = e.target.closest('.schedule-row');
+            const selects = row.querySelectorAll('select');
+            selects.forEach(select => {
+              select.disabled = !e.target.checked;
+              if (e.target.checked) {
+                select.required = true;
+              } else {
+                select.required = false;
+                select.value = select.classList.contains('ampm') ? 'AM' : '';
+              }
+            });
+            if (e.target.checked) {
+              row.classList.add('active');
+            } else {
+              row.classList.remove('active');
+            }
+          });
+        });
+      }
+
+      function populateTimeDropdowns() {
+        const hours = document.querySelectorAll('.time-select.hour');
+        const minutes = document.querySelectorAll('.time-select.minute');
+
+        hours.forEach(select => {
+          select.innerHTML = '<option value="">Hr</option>';
+          for (let i = 1; i <= 12; i++) {
+            const val = i.toString();
+            const option = document.createElement('option');
+            option.value = val;
+            option.textContent = val;
+            select.appendChild(option);
+          }
+        });
+
+        minutes.forEach(select => {
+          select.innerHTML = '<option value="">Min</option>';
+          for (let i = 0; i < 60; i += 5) {
+            const val = i.toString().padStart(2, '0');
+            const option = document.createElement('option');
+            option.value = val;
+            option.textContent = val;
+            select.appendChild(option);
+          }
+        });
+      }
+
+      function resetSchedulePicker() {
+        const checkboxes = elements.schedulePicker.querySelectorAll('.day-checkbox');
+        checkboxes.forEach(checkbox => {
+          checkbox.checked = false;
+          checkbox.dispatchEvent(new Event('change'));
+        });
+      }
+
+      function getScheduleString() {
+        const rows = elements.schedulePicker.querySelectorAll('.schedule-row');
+        const scheduleData = [];
+
+        rows.forEach(row => {
+          const checkbox = row.querySelector('.day-checkbox');
+          if (checkbox.checked) {
+            const day = checkbox.value;
+
+            const startHour = row.querySelector('.start-time-group .hour').value;
+            const startMin = row.querySelector('.start-time-group .minute').value;
+            const startAmPm = row.querySelector('.start-time-group .ampm').value;
+
+            const endHour = row.querySelector('.end-time-group .hour').value;
+            const endMin = row.querySelector('.end-time-group .minute').value;
+            const endAmPm = row.querySelector('.end-time-group .ampm').value;
+
+            if (startHour && startMin && endHour && endMin) {
+              const startTime = `${startHour}:${startMin} ${startAmPm}`;
+              const endTime = `${endHour}:${endMin} ${endAmPm}`;
+
+              scheduleData.push({
+                day,
+                start: startTime,
+                end: endTime
+              });
+            }
+          }
+        });
+
+        if (scheduleData.length === 0) return '';
+
+        // Group by time
+        const grouped = {};
+        scheduleData.forEach(item => {
+          const timeKey = `${item.start} - ${item.end}`;
+          if (!grouped[timeKey]) grouped[timeKey] = [];
+          grouped[timeKey].push(item.day.substring(0, 3)); // Mon, Tue, etc.
+        });
+
+        return Object.entries(grouped).map(([time, days]) => {
+          return `${days.join(', ')} ${time}`;
+        }).join(', ');
+      }
+
+      function parseScheduleString(scheduleStr) {
+        resetSchedulePicker();
+        if (!scheduleStr) return;
+
+        // Split the schedule string into individual time blocks
+        const scheduleBlocks = scheduleStr.split(/,\s*(?=[A-Za-z]{3}(?:,\s*[A-Za-z]{3})*\s+\d{1,2}:\d{2}\s*(?:AM|PM)\s*-\s*\d{1,2}:\d{2}\s*(?:AM|PM))/);
+
+        scheduleBlocks.forEach(block => {
+          const match = block.match(/([A-Za-z]{3}(?:,\s*[A-Za-z]{3})*)\s+(\d{1,2}:\d{2}\s*(?:AM|PM))\s*-\s*(\d{1,2}:\d{2}\s*(?:AM|PM))/);
+          if (match) {
+            const dayAbbreviations = match[1].split(', ').map(d => d.trim());
+            const startTime = match[2];
+            const endTime = match[3];
+
+            const dayMap = {
+              'Mon': 'Monday',
+              'Tue': 'Tuesday',
+              'Wed': 'Wednesday',
+              'Thu': 'Thursday',
+              'Fri': 'Friday',
+              'Sat': 'Saturday',
+              'Sun': 'Sunday'
+            };
+
+            dayAbbreviations.forEach(abbr => {
+              const fullDay = dayMap[abbr];
+              if (fullDay) {
+                const checkbox = Array.from(elements.schedulePicker.querySelectorAll('.day-checkbox'))
+                  .find(cb => cb.value === fullDay);
+
+                if (checkbox) {
+                  checkbox.checked = true;
+                  checkbox.dispatchEvent(new Event('change')); // Trigger to enable inputs
+                  const row = checkbox.closest('.schedule-row');
+
+                  // Parse time parts
+                  const [startH, startM, startAP] = parseTimeParts(startTime);
+                  const [endH, endM, endAP] = parseTimeParts(endTime);
+
+                  if (startH) {
+                    row.querySelector('.start-time-group .hour').value = startH;
+                    row.querySelector('.start-time-group .minute').value = startM;
+                    row.querySelector('.start-time-group .ampm').value = startAP;
+                  }
+
+                  if (endH) {
+                    row.querySelector('.end-time-group .hour').value = endH;
+                    row.querySelector('.end-time-group .minute').value = endM;
+                    row.querySelector('.end-time-group .ampm').value = endAP;
+                  }
+                }
+              }
+            });
+          }
+        });
+      }
+
+      function parseTimeParts(timeStr) {
+        const match = timeStr.match(/(\d{1,2}):(\d{2})\s*(AM|PM)/i);
+        if (!match) return [null, null, null];
+        return [match[1], match[2], match[3].toUpperCase()];
+      }
+
       async function fetchAllData() {
         await Promise.all([fetchSubjects(), fetchInstructors()]);
         renderSubjects();
@@ -236,7 +683,9 @@ $activePage = 'subjects';
 
       async function fetchSubjects() {
         try {
-          const response = await fetch(`${API_BASE}/admin/subjects`, { credentials: 'include' });
+          const response = await fetch(`${API_BASE}/admin/subjects`, {
+            credentials: 'include'
+          });
           const result = await response.json();
 
           if (!response.ok || !result.success) {
@@ -257,7 +706,9 @@ $activePage = 'subjects';
 
       async function fetchInstructors() {
         try {
-          const response = await fetch(`${API_BASE}/admin/instructors`, { credentials: 'include' });
+          const response = await fetch(`${API_BASE}/admin/instructors`, {
+            credentials: 'include'
+          });
           const result = await response.json();
 
           if (!response.ok || !result.success) {
@@ -334,7 +785,9 @@ $activePage = 'subjects';
 
       window.handleEditSubject = async function(subjectId) {
         try {
-          const response = await fetch(`${API_BASE}/admin/subjects/${subjectId}`, { credentials: 'include' });
+          const response = await fetch(`${API_BASE}/admin/subjects/${subjectId}`, {
+            credentials: 'include'
+          });
           const result = await response.json();
 
           if (!response.ok || !result.success) {
@@ -350,8 +803,9 @@ $activePage = 'subjects';
           document.getElementById('subjectYearLevel').value = subject.year_level || '';
           document.getElementById('subjectSection').value = subject.section || '';
           document.getElementById('subjectRoom').value = subject.room || '';
-          // Handle schedule - now plain text
-          document.getElementById('subjectSchedule').value = subject.schedule || '';
+
+          // Handle schedule parsing
+          parseScheduleString(subject.schedule);
 
           loadInstructors();
           setTimeout(() => {
@@ -373,18 +827,20 @@ $activePage = 'subjects';
 
       async function handleSaveSubject(event) {
         event.preventDefault();
+
+        // Populate hidden schedule input for validation if needed, or just use the string
+        const scheduleString = getScheduleString();
+        elements.hiddenScheduleInput.value = scheduleString;
+
         if (!FormValidator.validate(elements.subjectForm)) return;
 
-        const formData = new FormData(elements.subjectForm);
-        
-        // Get schedule as plain text (required)
-        const schedule = formData.get('schedule')?.trim();
-        if (!schedule) {
-          Toast.error('Schedule is required.');
-          setSavingState(false);
+        if (!scheduleString) {
+          Toast.error('Please select at least one day and time for the schedule.');
           return;
         }
-        
+
+        const formData = new FormData(elements.subjectForm);
+
         const payload = {
           code: formData.get('code')?.trim(),
           name: formData.get('name')?.trim(),
@@ -393,20 +849,22 @@ $activePage = 'subjects';
           year_level: parseInt(formData.get('year_level')),
           section: formData.get('section')?.trim(),
           room: formData.get('room')?.trim() || null,
-          schedule: schedule
+          schedule: scheduleString
         };
 
         setSavingState(true);
 
         try {
-          const url = state.editingSubjectId
-            ? `${API_BASE}/admin/subjects/${state.editingSubjectId}`
-            : `${API_BASE}/admin/subjects`;
+          const url = state.editingSubjectId ?
+            `${API_BASE}/admin/subjects/${state.editingSubjectId}` :
+            `${API_BASE}/admin/subjects`;
           const method = state.editingSubjectId ? 'PUT' : 'POST';
 
           const response = await fetch(url, {
             method: method,
-            headers: { 'Content-Type': 'application/json' },
+            headers: {
+              'Content-Type': 'application/json'
+            },
             credentials: 'include',
             body: JSON.stringify(payload)
           });
@@ -475,5 +933,5 @@ $activePage = 'subjects';
     })();
   </script>
 </body>
-</html>
 
+</html>
