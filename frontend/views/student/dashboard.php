@@ -646,9 +646,37 @@ if ($userData) {
           button.innerText = originalBtnText;
 
           if (error.code === error.PERMISSION_DENIED) {
-            Toast.error('Location permission denied.', 'Error');
+            // Check if running on HTTP on mobile device
+            const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+            const isHttp = window.location.protocol === 'http:';
+
+            if (isMobile && isHttp) {
+              Toast.error(
+                'Location access requires HTTPS on mobile devices. Please contact your administrator or access this site via HTTPS (https://).',
+                'HTTPS Required',
+                10000
+              );
+            } else {
+              Toast.error(
+                'Location permission denied. Please enable location access in your browser settings and ensure GPS is turned on.',
+                'Permission Denied',
+                8000
+              );
+            }
+          } else if (error.code === error.POSITION_UNAVAILABLE) {
+            Toast.error(
+              'Location information unavailable. Please ensure GPS/Location services are enabled on your device.',
+              'GPS Unavailable',
+              8000
+            );
+          } else if (error.code === error.TIMEOUT) {
+            Toast.error(
+              'Location request timed out. Please ensure you have a clear view of the sky and try again.',
+              'Timeout',
+              8000
+            );
           } else {
-            Toast.error('Location unavailable.', 'Error');
+            Toast.error('Unable to retrieve location. Please try again.', 'Error');
           }
         }
 
@@ -696,6 +724,20 @@ if ($userData) {
     loadWeeklySchedule();
     loadTodaysSchedule();
     loadActiveSessionState();
+
+    // Check if mobile user is on HTTP and show warning
+    const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+    const isHttp = window.location.protocol === 'http:';
+
+    if (isMobile && isHttp) {
+      setTimeout(() => {
+        Toast.warning(
+          'For location-based attendance to work on mobile devices, please access this site using HTTPS (https://). Contact your administrator for assistance.',
+          'HTTPS Recommended',
+          12000
+        );
+      }, 2000); // Show after 2 seconds to not overwhelm on page load
+    }
   </script>
 </body>
 
