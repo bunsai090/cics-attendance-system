@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Student Attendance Logs Page
  * CICS Attendance System
@@ -68,31 +69,32 @@ require_role('student');
             <div class="main-body">
                 <!-- Filters Section -->
                 <div class="logs-filters">
-                    <div class="filter-group">
+                    <div class="filter-group filter-dropdown" id="dateRangeFilter">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" style="width: 1.25rem; height: 1.25rem;">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-16.5 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-16.5 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 11.25v7.5" />
                         </svg>
                         <span class="filter-label">Date Range</span>
-                        <a href="#" class="filter-value">This Week</a>
+                        <a href="#" class="filter-value" id="dateRangeValue">This Week</a>
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" style="width: 1rem; height: 1rem;">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
                         </svg>
+                        <div class="filter-dropdown-menu" id="dateRangeMenu">
+                            <a href="#" class="filter-dropdown-item active" data-value="week">This Week</a>
+                            <a href="#" class="filter-dropdown-item" data-value="month">This Month</a>
+                            <a href="#" class="filter-dropdown-item" data-value="all">All Time</a>
+                        </div>
                     </div>
 
-                    <div class="filter-group">
+                    <div class="filter-group filter-dropdown" id="subjectFilter">
                         <span class="filter-label">Subject</span>
-                        <a href="#" class="filter-value">All Subjects</a>
+                        <a href="#" class="filter-value" id="subjectValue">All Subjects</a>
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" style="width: 1rem; height: 1rem;">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
                         </svg>
-                    </div>
-
-                    <div class="filter-group">
-                        <span class="filter-label">Section</span>
-                        <a href="#" class="filter-value">All Sections</a>
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" style="width: 1rem; height: 1rem;">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
-                        </svg>
+                        <div class="filter-dropdown-menu" id="subjectMenu">
+                            <a href="#" class="filter-dropdown-item active" data-value="">All Subjects</a>
+                            <!-- Subject options will be populated dynamically -->
+                        </div>
                     </div>
                 </div>
 
@@ -142,6 +144,138 @@ require_role('student');
             window.location.href = '/cics-attendance-system/login.php';
         }
 
+        // Filter state
+        let currentFilters = {
+            dateRange: 'week',
+            subject: ''
+        };
+
+        let allLogs = []; // Store all logs for filtering
+
+        // Calculate date range
+        function getDateRange(range) {
+            const now = new Date();
+            const startDate = new Date();
+
+            switch (range) {
+                case 'week':
+                    startDate.setDate(now.getDate() - 7);
+                    break;
+                case 'month':
+                    startDate.setMonth(now.getMonth() - 1);
+                    break;
+                case 'all':
+                    return null; // No date filtering
+                default:
+                    startDate.setDate(now.getDate() - 7);
+            }
+
+            return startDate;
+        }
+
+        // Filter logs based on current filters
+        function filterLogs() {
+            let filteredLogs = [...allLogs];
+
+            // Filter by date range
+            if (currentFilters.dateRange !== 'all') {
+                const startDate = getDateRange(currentFilters.dateRange);
+                if (startDate) {
+                    filteredLogs = filteredLogs.filter(log => {
+                        if (!log.date) return false;
+                        const logDate = new Date(log.date);
+                        return logDate >= startDate;
+                    });
+                }
+            }
+
+            // Filter by subject
+            if (currentFilters.subject) {
+                filteredLogs = filteredLogs.filter(log =>
+                    log.subject && log.subject.includes(currentFilters.subject)
+                );
+            }
+
+            displayLogs(filteredLogs);
+        }
+
+        // Display logs
+        function displayLogs(logs) {
+            const logsList = document.getElementById('logsList');
+
+            if (logs && logs.length > 0) {
+                logsList.innerHTML = '';
+
+                logs.forEach(log => {
+                    const statusClass = log.status === 'present' ? 'present' :
+                        log.status === 'late' ? 'late' : 'absent';
+                    const statusIcon = log.status === 'present' ?
+                        '<path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />' :
+                        log.status === 'late' ?
+                        '<path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" />' :
+                        '<path stroke-linecap="round" stroke-linejoin="round" d="M9.75 9.75l4.5 4.5m0-4.5l-4.5 4.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />';
+
+                    const timeInfo = log.time_in && log.time_out ?
+                        `Time-in: ${log.time_in} • Time-out: ${log.time_out}` :
+                        log.time_in ? `Time-in: ${log.time_in}` :
+                        'No attendance record';
+
+                    const logItem = document.createElement('div');
+                    logItem.className = 'log-item';
+                    logItem.innerHTML = `
+                        <div class="log-item-header">
+                            <h3 class="log-item-title">${log.subject || 'N/A'}</h3>
+                            <span class="status-badge ${statusClass}">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                                    ${statusIcon}
+                                </svg>
+                                ${log.status.charAt(0).toUpperCase() + log.status.slice(1)}
+                            </span>
+                        </div>
+                        <div class="log-item-details">
+                            <span class="log-time">${timeInfo}</span>
+                        </div>
+                        <div class="log-item-footer">
+                            <span class="log-instructor">Instructor: ${log.instructor || 'N/A'}</span>
+                            <span class="log-date">${log.date || ''}</span>
+                        </div>
+                    `;
+                    logsList.appendChild(logItem);
+                });
+            } else {
+                logsList.innerHTML = `
+                    <div class="log-item" style="text-align: center; padding: var(--spacing-lg); color: var(--text-secondary);">
+                        No attendance records found for the selected filters.
+                    </div>
+                `;
+            }
+        }
+
+        // Populate subject dropdown
+        function populateSubjectDropdown(logs) {
+            const subjectMenu = document.getElementById('subjectMenu');
+            const subjects = new Set();
+
+            logs.forEach(log => {
+                if (log.subject) {
+                    subjects.add(log.subject);
+                }
+            });
+
+            // Clear existing items except "All Subjects"
+            subjectMenu.innerHTML = '<a href="#" class="filter-dropdown-item active" data-value="">All Subjects</a>';
+
+            // Add unique subjects
+            subjects.forEach(subject => {
+                const item = document.createElement('a');
+                item.href = '#';
+                item.className = 'filter-dropdown-item';
+                item.setAttribute('data-value', subject);
+                item.textContent = subject;
+                subjectMenu.appendChild(item);
+            });
+        }
+
         // Load attendance logs
         async function loadAttendanceLogs() {
             try {
@@ -150,53 +284,14 @@ require_role('student');
                 });
 
                 const data = await response.json();
-                const logsList = document.getElementById('logsList');
 
                 if (data.success && data.data && data.data.length > 0) {
-                    logsList.innerHTML = '';
-                    
-                    data.data.forEach(log => {
-                        const statusClass = log.status === 'present' ? 'present' : 
-                                          log.status === 'late' ? 'late' : 'absent';
-                        const statusIcon = log.status === 'present' ? 
-                            '<path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />' :
-                            log.status === 'late' ?
-                            '<path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" />' :
-                            '<path stroke-linecap="round" stroke-linejoin="round" d="M9.75 9.75l4.5 4.5m0-4.5l-4.5 4.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />';
-                        
-                        const timeInfo = log.time_in && log.time_out ? 
-                            `Time-in: ${log.time_in} • Time-out: ${log.time_out}` :
-                            log.time_in ? `Time-in: ${log.time_in}` :
-                            'No attendance record';
-
-                        const logItem = document.createElement('div');
-                        logItem.className = 'log-item';
-                        logItem.innerHTML = `
-                            <div class="log-item-header">
-                                <h3 class="log-item-title">${log.subject || 'N/A'}</h3>
-                                <span class="status-badge ${statusClass}">
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-                                        ${statusIcon}
-                                    </svg>
-                                    ${log.status.charAt(0).toUpperCase() + log.status.slice(1)}
-                                </span>
-                            </div>
-                            <div class="log-item-details">
-                                <span class="log-time">${timeInfo}</span>
-                            </div>
-                            <div class="log-item-footer">
-                                <span class="log-instructor">Instructor: ${log.instructor || 'N/A'}</span>
-                                <span class="log-date">${log.date || ''}</span>
-                            </div>
-                        `;
-                        logsList.appendChild(logItem);
-                    });
+                    allLogs = data.data;
+                    populateSubjectDropdown(allLogs);
+                    filterLogs(); // Apply initial filter
                 } else {
-                    logsList.innerHTML = `
-                        <div class="log-item" style="text-align: center; padding: var(--spacing-lg); color: var(--text-secondary);">
-                            No attendance records found.
-                        </div>
-                    `;
+                    allLogs = [];
+                    displayLogs([]);
                 }
             } catch (error) {
                 console.error('Error loading attendance logs:', error);
@@ -208,9 +303,108 @@ require_role('student');
             }
         }
 
+        // Dropdown functionality
+        document.addEventListener('DOMContentLoaded', () => {
+            const dateRangeFilter = document.getElementById('dateRangeFilter');
+            const subjectFilter = document.getElementById('subjectFilter');
+            const dateRangeMenu = document.getElementById('dateRangeMenu');
+            const subjectMenu = document.getElementById('subjectMenu');
+
+            // Toggle dropdown
+            function toggleDropdown(filter, menu) {
+                const isOpen = menu.classList.contains('show');
+
+                // Close all dropdowns
+                document.querySelectorAll('.filter-dropdown-menu').forEach(m => m.classList.remove('show'));
+                document.querySelectorAll('.filter-dropdown').forEach(f => f.classList.remove('active'));
+
+                if (!isOpen) {
+                    menu.classList.add('show');
+                    filter.classList.add('active');
+                }
+            }
+
+            // Date range filter
+            dateRangeFilter.addEventListener('click', (e) => {
+                e.preventDefault();
+                if (!e.target.classList.contains('filter-dropdown-item')) {
+                    toggleDropdown(dateRangeFilter, dateRangeMenu);
+                }
+            });
+
+            // Subject filter
+            subjectFilter.addEventListener('click', (e) => {
+                e.preventDefault();
+                if (!e.target.classList.contains('filter-dropdown-item')) {
+                    toggleDropdown(subjectFilter, subjectMenu);
+                }
+            });
+
+            // Handle date range selection
+            dateRangeMenu.addEventListener('click', (e) => {
+                if (e.target.classList.contains('filter-dropdown-item')) {
+                    e.preventDefault();
+                    const value = e.target.getAttribute('data-value');
+                    const text = e.target.textContent;
+
+                    // Update UI
+                    document.getElementById('dateRangeValue').textContent = text;
+                    dateRangeMenu.querySelectorAll('.filter-dropdown-item').forEach(item => {
+                        item.classList.remove('active');
+                    });
+                    e.target.classList.add('active');
+
+                    // Update filter and reload
+                    currentFilters.dateRange = value;
+                    filterLogs();
+
+                    // Close dropdown
+                    dateRangeMenu.classList.remove('show');
+                    dateRangeFilter.classList.remove('active');
+                }
+            });
+
+            // Handle subject selection
+            subjectMenu.addEventListener('click', (e) => {
+                if (e.target.classList.contains('filter-dropdown-item')) {
+                    e.preventDefault();
+                    const value = e.target.getAttribute('data-value');
+                    const text = e.target.textContent;
+
+                    // Update UI
+                    document.getElementById('subjectValue').textContent = text;
+                    subjectMenu.querySelectorAll('.filter-dropdown-item').forEach(item => {
+                        item.classList.remove('active');
+                    });
+                    e.target.classList.add('active');
+
+                    // Update filter and reload
+                    currentFilters.subject = value;
+                    filterLogs();
+
+                    // Close dropdown
+                    subjectMenu.classList.remove('show');
+                    subjectFilter.classList.remove('active');
+                }
+            });
+
+            // Close dropdowns when clicking outside
+            document.addEventListener('click', (e) => {
+                if (!e.target.closest('.filter-dropdown')) {
+                    document.querySelectorAll('.filter-dropdown-menu').forEach(menu => {
+                        menu.classList.remove('show');
+                    });
+                    document.querySelectorAll('.filter-dropdown').forEach(filter => {
+                        filter.classList.remove('active');
+                    });
+                }
+            });
+        });
+
         // Load logs on page load
         loadAttendanceLogs();
     </script>
 </body>
 
 </html>
+```

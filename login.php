@@ -183,15 +183,17 @@
       try {
         // Generate device fingerprint
         let deviceFingerprint = null;
-        try {
-          submitBtn.textContent = 'Verifying device...';
-          deviceFingerprint = await DeviceFingerprint.generate();
-        } catch (fingerprintError) {
-          Toast.error('Unable to verify device. Please try again or use a different browser.', 'Device Verification Failed');
-          submitBtn.disabled = false;
-          submitBtn.textContent = originalText;
-          return;
-        }
+          try {
+            submitBtn.textContent = 'Verifying device...';
+            // Use stable fingerprint to reduce variability across sessions
+            deviceFingerprint = await DeviceFingerprint.generateStable();
+          } catch (fingerprintError) {
+            // Device fingerprint failed — continue without blocking login.
+            // Backend enforces device restriction only for students, so
+            // instructors can proceed even if fingerprint generation fails.
+            console.warn('Device fingerprint generation failed:', fingerprintError);
+            deviceFingerprint = null;
+          }
 
         submitBtn.textContent = 'Authenticating...';
 

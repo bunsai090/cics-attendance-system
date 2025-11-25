@@ -112,6 +112,7 @@ class StudentController
 
     /**
      * Helper to parse schedule strings like "MW 10:00-11:30" or "Monday 10:30am to 12:00pm"
+     * Also handles multiple entries separated by semicolons: "Monday 10:00 AM - 11:00 AM; Friday 02:00 PM - 03:00 PM"
      */
     private function parseScheduleString($scheduleStr)
     {
@@ -119,6 +120,36 @@ class StudentController
 
         // Normalize string
         $scheduleStr = trim($scheduleStr);
+
+        if (empty($scheduleStr)) {
+            return $results;
+        }
+
+        // Split by semicolon to handle multiple schedule entries
+        $entries = explode(';', $scheduleStr);
+
+        foreach ($entries as $entry) {
+            $entry = trim($entry);
+            if (empty($entry)) {
+                continue;
+            }
+
+            // Parse individual entry
+            $parsedEntry = $this->parseSingleScheduleEntry($entry);
+            if (!empty($parsedEntry)) {
+                $results = array_merge($results, $parsedEntry);
+            }
+        }
+
+        return $results;
+    }
+
+    /**
+     * Parse a single schedule entry like "Monday 10:00 AM - 11:00 AM"
+     */
+    private function parseSingleScheduleEntry($scheduleStr)
+    {
+        $results = [];
 
         // Common patterns:
         // MW 10:00 AM - 11:30 AM

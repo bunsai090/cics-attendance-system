@@ -54,12 +54,57 @@
   color: var(--text-primary);
   border-radius: var(--radius-lg);
   transition: all var(--transition-base);
+  border: none;
+  cursor: pointer;
 }
 
-.attendance-button:hover {
+.attendance-button:hover:not(:disabled) {
   background-color: var(--accent-gold);
   transform: translateY(-2px);
   box-shadow: var(--shadow-lg);
+}
+
+.attendance-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+/* Success state (Time-In) */
+.attendance-button.btn-success {
+  background-color: var(--success-green) !important;
+  color: var(--text-inverse) !important;
+}
+
+.attendance-button.btn-success:hover:not(:disabled) {
+  background-color: #059669 !important;
+  transform: translateY(-2px) !important;
+  box-shadow: var(--shadow-lg) !important;
+}
+
+/* Danger state (Time-Out) */
+.attendance-button.btn-danger {
+  background-color: var(--error-red) !important;
+  color: var(--text-inverse) !important;
+}
+
+.attendance-button.btn-danger:hover:not(:disabled) {
+  background-color: #dc2626 !important;
+  transform: translateY(-2px) !important;
+  box-shadow: var(--shadow-lg) !important;
+}
+
+/* Secondary state (Completed) */
+.attendance-button.btn-secondary {
+  background-color: var(--bg-secondary) !important;
+  color: var(--text-secondary) !important;
+  border: 2px solid var(--text-secondary) !important;
+}
+
+.attendance-button.btn-secondary:hover:not(:disabled) {
+  background-color: var(--bg-primary) !important;
+  transform: translateY(-2px) !important;
+  box-shadow: var(--shadow-lg) !important;
 }
 
 .attendance-status {
@@ -292,23 +337,6 @@
   color: var(--text-muted);
 }
 
-/* Filters */
-.filter-group {
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--spacing-md);
-  margin-bottom: var(--spacing-lg);
-  padding: var(--spacing-lg);
-  background-color: var(--bg-primary);
-  border-radius: var(--radius-lg);
-  border: 1px solid var(--border-light);
-}
-
-.filter-item {
-  flex: 1;
-  min-width: 150px;
-}
-
 /* Pagination */
 .pagination {
   display: flex;
@@ -358,25 +386,6 @@
   cursor: not-allowed;
 }
 
-@media (max-width: 768px) {
-  .dashboard-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .attendance-summary {
-    flex-direction: column;
-  }
-
-  .filter-group {
-    flex-direction: column;
-  }
-
-  .pagination {
-    flex-direction: column;
-    gap: var(--spacing-md);
-  }
-}
-
 /* Attendance Logs Page */
 .logs-filters {
   display: flex;
@@ -411,11 +420,78 @@
   text-decoration: none;
   font-weight: var(--font-weight-medium);
   transition: color var(--transition-base);
+  cursor: pointer;
 }
 
 .filter-value:hover {
   color: var(--primary-blue-dark);
   text-decoration: underline;
+}
+
+/* Filter Dropdown Styles */
+.filter-dropdown {
+  position: relative;
+  cursor: pointer;
+}
+
+.filter-dropdown-menu {
+  position: absolute;
+  top: calc(100% + 0.5rem);
+  left: 0;
+  min-width: 200px;
+  background-color: var(--bg-primary);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-lg);
+  z-index: 1000;
+  display: none;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.filter-dropdown-menu.show {
+  display: flex;
+  animation: dropdownFadeIn 0.2s ease-out;
+}
+
+@keyframes dropdownFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.filter-dropdown-item {
+  padding: var(--spacing-md) var(--spacing-lg);
+  font-size: var(--font-size-base);
+  color: var(--text-primary);
+  text-decoration: none;
+  transition: all var(--transition-fast);
+  border-bottom: 1px solid var(--border-light);
+}
+
+.filter-dropdown-item:last-child {
+  border-bottom: none;
+}
+
+.filter-dropdown-item:hover {
+  background-color: var(--primary-blue-lighter);
+  color: var(--primary-blue);
+}
+
+.filter-dropdown-item.active {
+  background-color: var(--primary-blue);
+  color: var(--text-inverse);
+  font-weight: var(--font-weight-semibold);
+}
+
+.filter-dropdown.active .filter-value {
+  color: var(--primary-blue-dark);
 }
 
 .logs-list {
@@ -513,8 +589,16 @@
   color: var(--error-red);
 }
 
-/* Responsive Logs Page */
+/* Responsive */
 @media (max-width: 768px) {
+  .dashboard-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .attendance-summary {
+    flex-direction: column;
+  }
+
   .logs-filters {
     flex-direction: column;
     gap: var(--spacing-md);

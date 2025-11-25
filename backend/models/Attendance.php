@@ -113,7 +113,7 @@ class Attendance
         $sql = "SELECT ar.*, 
                        s.student_id, s.first_name, s.last_name, s.program, s.section,
                        sub.code as subject_code, sub.name as subject_name,
-                       ases.session_date, ases.start_time
+                       ases.session_date, ases.start_time, ases.instructor_id
                 FROM attendance_records ar
                 JOIN students s ON ar.student_id = s.id
                 JOIN attendance_sessions ases ON ar.session_id = ases.id
@@ -150,6 +150,26 @@ class Attendance
         if (!empty($filters['program'])) {
             $sql .= " AND s.program = :program";
             $params[':program'] = $filters['program'];
+        }
+
+        if (!empty($filters['instructor_id'])) {
+            $sql .= " AND sub.instructor_id = :instructor_id";
+            $params[':instructor_id'] = $filters['instructor_id'];
+        }
+
+        if (!empty($filters['subject_id'])) {
+            $sql .= " AND sub.id = :subject_id";
+            $params[':subject_id'] = $filters['subject_id'];
+        }
+
+        if (!empty($filters['section'])) {
+            $sql .= " AND s.section = :section";
+            $params[':section'] = $filters['section'];
+        }
+
+        if (!empty($filters['search'])) {
+            $sql .= " AND (s.first_name LIKE :search OR s.last_name LIKE :search OR s.student_id LIKE :search)";
+            $params[':search'] = '%' . $filters['search'] . '%';
         }
 
         $sql .= " ORDER BY ases.session_date DESC, ar.time_in DESC";

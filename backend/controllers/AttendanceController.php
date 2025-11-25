@@ -156,7 +156,31 @@ class AttendanceController
 
         $records = $this->attendanceModel->getRecords($filters);
 
-        Response::success('Attendance records retrieved', $records);
+        // Transform records to match frontend expectations
+        $transformedRecords = array_map(function ($record) {
+            // Get instructor name if available
+            $instructorName = 'N/A';
+            if (!empty($record['instructor_id'])) {
+                $instructor = $this->instructorModel->findById($record['instructor_id']);
+                if ($instructor) {
+                    $instructorName = trim($instructor['first_name'] . ' ' . $instructor['last_name']);
+                }
+            }
+
+            return [
+                'id' => $record['id'],
+                'subject' => $record['subject_code'] . ' - ' . $record['subject_name'],
+                'status' => $record['status'],
+                'time_in' => !empty($record['time_in']) ? date('h:i A', strtotime($record['time_in'])) : null,
+                'time_out' => !empty($record['time_out']) ? date('h:i A', strtotime($record['time_out'])) : null,
+                'instructor' => $instructorName,
+                'date' => !empty($record['session_date']) ? date('M d, Y', strtotime($record['session_date'])) : '',
+                'session_id' => $record['session_id'],
+                'student_id' => $record['student_id']
+            ];
+        }, $records);
+
+        Response::success('Attendance records retrieved', $transformedRecords);
     }
 
     public function getSummary()
