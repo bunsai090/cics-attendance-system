@@ -113,7 +113,7 @@ class Attendance
         $sql = "SELECT ar.*, 
                        s.student_id, s.first_name, s.last_name, s.program, s.section,
                        sub.code as subject_code, sub.name as subject_name,
-                       ases.session_date, ases.start_time
+                       ases.session_date, ases.start_time, ases.instructor_id
                 FROM attendance_records ar
                 JOIN students s ON ar.student_id = s.id
                 JOIN attendance_sessions ases ON ar.session_id = ases.id

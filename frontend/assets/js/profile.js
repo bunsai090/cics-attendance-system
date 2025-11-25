@@ -12,7 +12,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // Get device fingerprint on page load
   const deviceFingerprintElement = document.getElementById('deviceFingerprint');
   const currentDeviceFingerprintElement = document.getElementById('currentDeviceFingerprint');
-  
+
   // Device Change Modal Elements
   const requestDeviceChangeBtn = document.getElementById('requestDeviceChangeBtn');
   const deviceChangeModal = document.getElementById('deviceChangeModal');
@@ -34,22 +34,22 @@ document.addEventListener('DOMContentLoaded', () => {
       // Try to get device fingerprint from user data first
       const user = AuthAPI.getUser();
       let fingerprint = null;
-      
+
       if (user && user.device_fingerprint) {
         fingerprint = user.device_fingerprint;
       } else if (typeof DeviceFingerprint !== 'undefined') {
         // Generate current device fingerprint
         fingerprint = await DeviceFingerprint.generate();
       }
-      
+
       if (fingerprint) {
         // Format fingerprint for display (first 12 characters)
         const displayFingerprint = fingerprint.substring(0, 12).toUpperCase().replace(/(.{3})/g, '$1-').replace(/-$/, '');
-        
+
         if (deviceFingerprintElement) {
           deviceFingerprintElement.textContent = displayFingerprint;
         }
-        
+
         if (currentDeviceFingerprintElement) {
           currentDeviceFingerprintElement.textContent = displayFingerprint;
         }
@@ -131,7 +131,7 @@ document.addEventListener('DOMContentLoaded', () => {
         reasonTextarea.classList.add('error');
         const formGroup = reasonTextarea.closest('.form-group');
         const existingError = formGroup?.querySelector('.form-error');
-        
+
         if (!existingError) {
           const errorDiv = document.createElement('div');
           errorDiv.className = 'form-error';
@@ -152,56 +152,9 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     }
 
-    // Disable submit button
-    if (submitDeviceChangeBtn) {
-      submitDeviceChangeBtn.disabled = true;
-      submitDeviceChangeBtn.textContent = 'Submitting...';
-    }
-
-    try {
-      // Get current device fingerprint
-      let currentFingerprint = null;
-      if (typeof DeviceFingerprint !== 'undefined') {
-        currentFingerprint = await DeviceFingerprint.generate();
-      }
-
-      // Call backend API to submit device change request
-      const response = await fetch('/cics-attendance-system/backend/api/student/device-change', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        credentials: 'include',
-        body: JSON.stringify({
-          reason: reason,
-          currentDeviceFingerprint: currentFingerprint
-        })
-      });
-
-      const data = await response.json();
-
-      if (data.success) {
-        Toast.success(
-          'Device change request submitted successfully! An administrator will review your request.',
-          'Request Submitted',
-          5000
-        );
-
-        // Close modal
-        closeDeviceChangeModal();
-      } else {
-        Toast.error(data.message || 'Failed to submit request. Please try again.', 'Error');
-      }
-    } catch (error) {
-      console.error('Error submitting device change request:', error);
-      Toast.error('An error occurred while submitting your request. Please try again.', 'Error');
-    } finally {
-      // Reset button state
-      if (submitDeviceChangeBtn) {
-        submitDeviceChangeBtn.disabled = false;
-        submitDeviceChangeBtn.textContent = 'Submit Request';
-      }
-    }
+    // Show "Coming Soon" toast and close modal
+    Toast.info('This feature is coming soon!', 'Coming Soon', 3000);
+    closeDeviceChangeModal();
   }
 
   // Handle Logout
@@ -215,7 +168,7 @@ document.addEventListener('DOMContentLoaded', () => {
     try {
       // Call backend logout API
       await AuthAPI.logout();
-      
+
       // AuthAPI.logout() already handles redirect, but show message first
       Toast.info('You have been logged out successfully.', 'Logged Out', 2000);
     } catch (error) {
@@ -325,7 +278,7 @@ document.addEventListener('DOMContentLoaded', () => {
         reasonTextarea.classList.add('error');
         const formGroup = reasonTextarea.closest('.form-group');
         const existingError = formGroup?.querySelector('.form-error');
-        
+
         if (!existingError && document.activeElement !== submitDeviceChangeBtn) {
           const errorDiv = document.createElement('div');
           errorDiv.className = 'form-error';

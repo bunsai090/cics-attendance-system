@@ -83,7 +83,8 @@ if ($userData) {
         </a>
       </nav>
       <div class="sidebar-footer">
-        <p>© 2023 ZPPSU CICS<br>Campus Attendance System</p>
+        <p>© 2025 ZPPSU CICS<br>CICS Students Access and Attendance System
+        </p>
       </div>
     </aside>
 
@@ -261,25 +262,25 @@ if ($userData) {
   <script src="../../assets/js/auth.js"></script>
   <script>
     let studentActiveSession = null;
-    
+
     // Session State Manager - Handles caching and persistence
     const SessionStateManager = {
       CACHE_KEY: 'student_active_session_cache',
       CACHE_EXPIRY_KEY: 'student_active_session_expiry',
       CACHE_DURATION: 30000, // 30 seconds cache
-      
+
       getCachedState() {
         const cached = sessionStorage.getItem(this.CACHE_KEY);
         const expiry = sessionStorage.getItem(this.CACHE_EXPIRY_KEY);
-        
+
         if (!cached || !expiry) return null;
-        
+
         // Check if cache has expired
         if (Date.now() > parseInt(expiry, 10)) {
           this.clearCache();
           return null;
         }
-        
+
         try {
           return JSON.parse(cached);
         } catch (e) {
@@ -288,7 +289,7 @@ if ($userData) {
           return null;
         }
       },
-      
+
       setCachedState(state) {
         try {
           sessionStorage.setItem(this.CACHE_KEY, JSON.stringify(state));
@@ -297,13 +298,13 @@ if ($userData) {
           console.warn('Failed to cache session state:', e);
         }
       },
-      
+
       clearCache() {
         sessionStorage.removeItem(this.CACHE_KEY);
         sessionStorage.removeItem(this.CACHE_EXPIRY_KEY);
       }
     };
-    
+
     // Helper function to convert 24-hour time to 12-hour format with AM/PM
     function formatTimeTo12Hour(time24) {
       if (!time24) return '';
@@ -313,7 +314,7 @@ if ($userData) {
       const hour12 = hour % 12 || 12;
       return `${hour12}:${minutes} ${ampm}`;
     }
-    
+
     // Check authentication on page load
     if (!AuthAPI.isAuthenticated()) {
       window.location.href = '/cics-attendance-system/login.php';
@@ -523,10 +524,10 @@ if ($userData) {
 
         if (response.ok && result.success && result.data) {
           studentActiveSession = result.data;
-          
+
           // Cache the state for future refreshes
           SessionStateManager.setCachedState(result.data);
-          
+
           // Update UI
           updateUIWithSessionState(result.data, button, statusContainer);
         } else {
@@ -536,7 +537,7 @@ if ($userData) {
         }
       } catch (error) {
         console.error('Error loading active session:', error);
-        
+
         // If error and we have cached state, use it instead of showing error
         const cachedState = SessionStateManager.getCachedState();
         if (cachedState && !forceRefresh) {
@@ -789,10 +790,10 @@ if ($userData) {
 
             if (data.success) {
               Toast.success(`${actionText} successful!`, 'Success');
-              
+
               // Clear cache and reload session state immediately
               SessionStateManager.clearCache();
-              
+
               // Small delay to ensure database is updated
               setTimeout(() => {
                 loadActiveSessionState(true);

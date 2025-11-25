@@ -16,13 +16,8 @@ document.addEventListener('DOMContentLoaded', () => {
   // Open modal when FAB is clicked
   if (fab) {
     fab.addEventListener('click', () => {
-      // Use the backdrop ID directly (Modal.open can handle both backdrop and modal IDs)
-      if (modal) {
-        modal.classList.add('show');
-        document.body.style.overflow = 'hidden';
-      } else {
-        Modal.open('newRequestModal');
-      }
+      // Show "Coming Soon" toast instead of opening modal
+      Toast.info('This feature is coming soon!', 'Coming Soon', 3000);
     });
   }
 

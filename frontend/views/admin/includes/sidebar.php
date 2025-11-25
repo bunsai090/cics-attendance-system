@@ -49,6 +49,6 @@
     </a>
   </nav>
   <div class="sidebar-footer">
-    <p>© 2025 ZPPSU CICS Attendance System</p>
+    <p>© 2025 - ZPPSU CICS Students Access and Attendance System</p>
   </div>
 </aside>
