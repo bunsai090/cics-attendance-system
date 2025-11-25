@@ -39,6 +39,15 @@
   overflow: hidden;
   transform: scale(0.95);
   transition: transform var(--transition-base);
+  display: flex;
+  flex-direction: column;
+}
+
+.modal form {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 0;
 }
 
 .modal-backdrop.show .modal {
@@ -51,6 +60,7 @@
   justify-content: space-between;
   padding: var(--spacing-lg);
   border-bottom: 1px solid var(--border-light);
+  flex-shrink: 0;
 }
 
 .modal-title {
@@ -85,7 +95,8 @@
   padding: var(--spacing-lg);
   overflow-y: auto;
   overflow-x: hidden;
-  max-height: calc(90vh - 8rem);
+  flex: 1;
+  min-height: 0;
 }
 
 .modal-footer {
@@ -96,11 +107,16 @@
   padding: var(--spacing-lg);
   border-top: 1px solid var(--border-light);
   background-color: var(--bg-secondary);
+  flex-shrink: 0;
 }
 
 /* Modal Sizes */
 .modal-sm {
   max-width: 24rem;
+}
+
+.modal-md {
+  max-width: 40rem;
 }
 
 .modal-lg {

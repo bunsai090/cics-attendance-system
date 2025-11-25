@@ -96,21 +96,21 @@ $activePage = 'subjects';
                 <div class="modal-body">
                     <div class="form-grid">
                         <div class="form-field form-group">
-                            <label for="subjectCode">Subject Code <span class="text-danger">*</span></label>
+                            <label for="subjectCode">SUBJECT CODE <span class="text-danger">*</span></label>
                             <input type="text" id="subjectCode" name="code" class="form-control" required maxlength="20">
                         </div>
-                        <div class="form-field form-group" style="grid-column: span 2;">
-                            <label for="subjectName">Subject Name <span class="text-danger">*</span></label>
+                        <div class="form-field form-group">
+                            <label for="subjectName">SUBJECT NAME <span class="text-danger">*</span></label>
                             <input type="text" id="subjectName" name="name" class="form-control" required maxlength="255">
                         </div>
                         <div class="form-field form-group" style="grid-column: span 2;">
-                            <label for="subjectInstructor">Instructor <span class="text-danger">*</span></label>
+                            <label for="subjectInstructor">INSTRUCTOR <span class="text-danger">*</span></label>
                             <select id="subjectInstructor" name="instructor_id" class="form-control" required>
                                 <option value="">Select Instructor</option>
                             </select>
                         </div>
                         <div class="form-field form-group">
-                            <label for="subjectProgram">Program <span class="text-danger">*</span></label>
+                            <label for="subjectProgram">PROGRAM <span class="text-danger">*</span></label>
                             <select id="subjectProgram" name="program" class="form-control" required>
                                 <option value="">Select Program</option>
                                 <option value="BSIT">BSIT</option>
@@ -118,7 +118,7 @@ $activePage = 'subjects';
                             </select>
                         </div>
                         <div class="form-field form-group">
-                            <label for="subjectYearLevel">Year Level <span class="text-danger">*</span></label>
+                            <label for="subjectYearLevel">YEAR LEVEL <span class="text-danger">*</span></label>
                             <select id="subjectYearLevel" name="year_level" class="form-control" required>
                                 <option value="">Select Year</option>
                                 <option value="1">1st Year</option>
@@ -128,7 +128,7 @@ $activePage = 'subjects';
                             </select>
                         </div>
                         <div class="form-field form-group">
-                            <label for="subjectSection">Section <span class="text-danger">*</span></label>
+                            <label for="subjectSection">SECTION <span class="text-danger">*</span></label>
                             <select id="subjectSection" name="section" class="form-control" required>
                                 <option value="">Select Section</option>
                                 <option value="A">A</option>
@@ -142,11 +142,11 @@ $activePage = 'subjects';
                             </select>
                         </div>
                         <div class="form-field form-group">
-                            <label for="subjectRoom">Room</label>
+                            <label for="subjectRoom">ROOM</label>
                             <input type="text" id="subjectRoom" name="room" class="form-control" maxlength="50">
                         </div>
                         <div class="form-field form-group" style="grid-column: span 2;">
-                            <label for="subjectSchedule">Schedule <span class="text-danger">*</span></label>
+                            <label for="subjectSchedule">SCHEDULE <span class="text-danger">*</span></label>
                             <div class="schedule-layout">
                                 <div class="schedule-container">
                                     <div class="schedule-header-row">
