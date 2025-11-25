@@ -83,17 +83,11 @@ class ParentEmailNotifier {
             // Fetch parent and attendance data from backend
             // Use API_BASE if defined, otherwise fallback to project path
             const apiBase = typeof API_BASE !== 'undefined' ? API_BASE : '/cics-attendance-system/backend/api';
-            const headers = {};
-            const token = localStorage.getItem('token');
-
-            if (token) {
-                headers['Authorization'] = `Bearer ${token}`;
-            }
-
             const response = await fetch(`${apiBase}/email/session-notifications?session_id=${sessionId}`, {
                 method: 'GET',
-                headers,
-                credentials: 'include' // ensure PHP session cookies are included
+                headers: {
+                    'Authorization': `Bearer ${localStorage.getItem('token')}`
+                }
             });
 
             if (!response.ok) {
@@ -264,19 +258,12 @@ class ParentEmailNotifier {
     async logNotification(emailData, status) {
         try {
             const apiBase = typeof API_BASE !== 'undefined' ? API_BASE : '/cics-attendance-system/backend/api';
-            const headers = {
-                'Content-Type': 'application/json'
-            };
-            const token = localStorage.getItem('token');
-
-            if (token) {
-                headers['Authorization'] = `Bearer ${token}`;
-            }
-
             await fetch(`${apiBase}/email/log-notification`, {
                 method: 'POST',
-                headers,
-                credentials: 'include', // include cookies for session auth
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${localStorage.getItem('token')}`
+                },
                 body: JSON.stringify({
                     notification_id: emailData.notification_id,
                     status,

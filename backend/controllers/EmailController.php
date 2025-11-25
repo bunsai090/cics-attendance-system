@@ -42,8 +42,8 @@ class EmailController
                 Response::error('Session not found', null, 404);
             }
 
-            // Get all parents for students in this session (including absentees)
-            $parents = $this->emailService->getParentsForSession($session);
+            // Get all parents for students in this session
+            $parents = $this->emailService->getParentsForSession($sessionId);
 
             if (empty($parents)) {
                 Response::success('No parents found for this session', []);
